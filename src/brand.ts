@@ -10,12 +10,12 @@ const AU_GOVT = "Australian Government";
 
 registerFont("static/LiberationSerif-Bold.ttf", {
     family: "Liberation Serif",
-    weight: "Bold"
+    weight: "bold"
 });
 
 registerFont("static/LiberationSerif-Regular.ttf", {
     family: "Liberation Serif",
-    weight: "Regular"
+    weight: "regular"
 });
 
 let crest: Image | undefined = undefined;
@@ -93,7 +93,7 @@ function createGraphics(width: number, height: number): Graphics {
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, 0, width, height);
     ctx.fillStyle = "#000";
-    ctx.font = "TODO";
+    ctx.font = "bold 54px 'Liberation Serif'";
     return {
         canvas: c,
         ctx
@@ -158,8 +158,7 @@ function drawAndUnderline(
     const leftLineOffset = center ? ((canvasWidth - lineWidth) / 2) : crest.width + QUARTER_BRANDING_X;
 
     if(text.startsWith("|")) {
-        // TODO
-        g.font = "Liberation Serif";
+        g.font = "regular 54px 'Liberation Serif'";
         // TODO: replaceAll polyfill
         g.fillText(text.replace("|", ""), leftTextOffset, y - 20);
         g.fillRect(leftLineOffset, y, lineWidth, 2);
@@ -167,8 +166,7 @@ function drawAndUnderline(
         g.fillStyle = "#fff";
         g.fillRect(leftLineOffsetErase, y - 60, longestLine, 2);
         g.fillStyle = "#000";
-        // TODO
-        g.font = "Liberation Serif Bold";
+        g.font = "bold 54px 'Liberation Serif'";
 
         return 60;
     }
