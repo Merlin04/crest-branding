@@ -1,5 +1,8 @@
+# Australian Government Crest Branding API - in TypeScript!
 
-# Australian Government Crest Branding API
+This is a TypeScript/Express port of the Australian Government's branding API to generate logos with text (originally written in Kotlin and Spring Boot). The logos it generates are almost identical to the original ones (just some small font rendering differences), and from some unscientific tests it appears to be substantially faster. The actual API/query parameter usage is the same.
+
+## Original API docs
 
 This api generates Government logos using the coat of arms that follow [the guidelines](https://beta.dta.gov.au/help-and-advice/guides-and-tools/requirements-australian-government-websites/branding)
 
