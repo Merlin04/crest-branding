@@ -33,7 +33,7 @@ export async function inline(lines: string[], setHeight: number, square: boolean
     g.ctx.drawImage(crest, QUARTER_BRANDING_X, QUARTER_BRANDING_X);
     drawLines(g.ctx, lines, width, linesStart, longestLine, false);
 
-    return g.canvas.toBuffer();
+    return sizeImage(g, setHeight, square).canvas.toBuffer();
 }
 
 export async function stacked(lines: string[], setHeight: number, square: boolean) {
@@ -48,7 +48,24 @@ export async function stacked(lines: string[], setHeight: number, square: boolea
     g.ctx.drawImage(crest, (width - crest.width) / 2, 0);
     drawLines(g.ctx, lines, width, crest.height, longestLine, true);
 
-    return g.canvas.toBuffer();
+    return sizeImage(g, setHeight, square).canvas.toBuffer();
+}
+
+function sizeImage(source: Graphics, setHeight: number, square: boolean): Graphics {
+    const { width, height } = source.canvas;
+
+    if(!square) {
+        const heightScale = height / setHeight;
+        const widthScale = width / heightScale;
+        const destination = createGraphics(widthScale, setHeight);
+        destination.ctx.drawImage(source.canvas, 0, 0, destination.canvas.width, destination.canvas.height);
+        return destination;
+    }
+
+    const destination = createGraphics(width, width);
+    destination.ctx.drawImage(source.canvas, 0, (width - height) / 2);
+    // A bit inefficient but should work well and results in cleaner code
+    return sizeImage(destination, setHeight, false);
 }
 
 function getLongestWidth(initialLines: string[]) {
@@ -65,7 +82,12 @@ function getLongestWidth(initialLines: string[]) {
     return longest;
 }
 
-function createGraphics(width: number, height: number) {
+interface Graphics {
+    canvas: Canvas,
+    ctx: NodeCanvasRenderingContext2D
+}
+
+function createGraphics(width: number, height: number): Graphics {
     const c = createCanvas(width, height);
     const ctx = c.getContext("2d");
     ctx.fillStyle = "#fff";
