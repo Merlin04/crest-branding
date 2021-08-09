@@ -1,4 +1,4 @@
-import { createCanvas, Image, loadImage, NodeCanvasRenderingContext2D, registerFont } from "canvas";
+import { Canvas, createCanvas, Image, loadImage, NodeCanvasRenderingContext2D, registerFont } from "canvas";
 import fs from "fs";
 import { promisify } from "util";
 
@@ -20,8 +20,6 @@ registerFont("static/LiberationSerif-Regular.ttf", {
 
 let crest: Image | undefined = undefined;
 
-export function stacked() {
-}
 export async function inline(lines: string[], setHeight: number, square: boolean) {
     if (crest === undefined) {
         crest = await loadImage(await readFile("static/crest.png", "binary"));
@@ -32,12 +30,29 @@ export async function inline(lines: string[], setHeight: number, square: boolean
     const width = longestLine + 2 * BRANDING_X + crest.width;
 
     const g = createGraphics(width, height);
-    g.drawImage(crest, QUARTER_BRANDING_X, QUARTER_BRANDING_X);
-    drawLines(g, lines, width, linesStart, longestLine, false);
+    g.ctx.drawImage(crest, QUARTER_BRANDING_X, QUARTER_BRANDING_X);
+    drawLines(g.ctx, lines, width, linesStart, longestLine, false);
+
+    return g.canvas.toBuffer();
+}
+
+export async function stacked(lines: string[], setHeight: number, square: boolean) {
+    if (crest === undefined) {
+        crest = await loadImage(await readFile("static/crest.png", "binary"));
+    }
+    const longestLine = getLongestWidth(lines);
+    const height = crest.height + 80 * (lines.length + howManyNewLines(lines) + 1);
+    const width = longestLine + 2 * BRANDING_X;
+
+    const g = createGraphics(width, height);
+    g.ctx.drawImage(crest, (width - crest.width) / 2, 0);
+    drawLines(g.ctx, lines, width, crest.height, longestLine, true);
+
+    return g.canvas.toBuffer();
 }
 
 function getLongestWidth(initialLines: string[]) {
-    const g = createGraphics(1, 1);
+    const g = createGraphics(1, 1).ctx;
     const lines = [AU_GOVT, ...initialLines];
     let longest = 0;
     for (const line of lines) {
@@ -57,7 +72,10 @@ function createGraphics(width: number, height: number) {
     ctx.fillRect(0, 0, width, height);
     ctx.fillStyle = "#000";
     ctx.font = "TODO";
-    return ctx;
+    return {
+        canvas: c,
+        ctx
+    };
 }
 
 function howManyNewLines(lines: string[]) {
