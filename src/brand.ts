@@ -1,6 +1,7 @@
 import { Canvas, createCanvas, Image, loadImage, NodeCanvasRenderingContext2D, registerFont } from "canvas";
 import fs from "fs";
 import { promisify } from "util";
+import "ts-replace-all";
 
 const readFile = promisify(fs.readFile);
 
@@ -159,8 +160,7 @@ function drawAndUnderline(
 
     if(text.startsWith("|")) {
         g.font = "regular 54px 'Liberation Serif'";
-        // TODO: replaceAll polyfill
-        g.fillText(text.replace("|", ""), leftTextOffset, y - 20);
+        g.fillText(text.replaceAll("|", ""), leftTextOffset, y - 20);
         g.fillRect(leftLineOffset, y, lineWidth, 2);
         const leftLineOffsetErase = center ? (canvasWidth - longestLine) / 2 : crest.width + QUARTER_BRANDING_X;
         g.fillStyle = "#fff";
