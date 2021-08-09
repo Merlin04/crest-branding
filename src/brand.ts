@@ -23,7 +23,7 @@ let crest: Image | undefined = undefined;
 
 export async function inline(lines: string[], setHeight: number, square: boolean) {
     if (crest === undefined) {
-        crest = await loadImage(await readFile("static/crest.png", "binary"));
+        crest = await loadImage(await readFile("static/crest.png"));
     }
     const linesStart = (BRANDING_X * 1.95);
     const longestLine = getLongestWidth(lines);
@@ -39,7 +39,7 @@ export async function inline(lines: string[], setHeight: number, square: boolean
 
 export async function stacked(lines: string[], setHeight: number, square: boolean) {
     if (crest === undefined) {
-        crest = await loadImage(await readFile("static/crest.png", "binary"));
+        crest = await loadImage(await readFile("static/crest.png"));
     }
     const longestLine = getLongestWidth(lines);
     const height = crest.height + 80 * (lines.length + howManyNewLines(lines) + 1);
