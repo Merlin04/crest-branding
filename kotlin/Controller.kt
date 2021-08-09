@@ -18,7 +18,11 @@ class Controller {
 
     @CrossOrigin
     @RequestMapping("/stacked.png")
-    fun stacked_png(@RequestParam agency:List<String>, @RequestParam height:Int = 800, @RequestParam(required = false, defaultValue="false") square:Boolean = false): ByteArray{
+    fun stacked_png(
+        @RequestParam agency:List<String>, 
+        @RequestParam height:Int = 800,
+        @RequestParam(required = false, defaultValue="false") square:Boolean = false
+    ): ByteArray{
         val brand = Brand()
         val image = brand.stacked(dollarEscape(agency), height, square)
 
