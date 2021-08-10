@@ -1,8 +1,12 @@
+![Australian Government - Department of Porting Things to TypeScript](https://aus-crest.vercel.app/stacked.png?agency=Department%20of%20Porting%20Things%20to%20TypeScript&height=600)
+
 # Australian Government Crest Branding API - in TypeScript!
 
-This is a TypeScript/Express port of the Australian Government's branding API to generate logos with text (originally written in Kotlin and Spring Boot). The logos it generates are almost identical to the original ones (just some small font rendering differences), and from some unscientific tests it appears to be substantially faster. The actual API/query parameter usage is the same.
+## Port information
 
-## Original API docs
+This is a TypeScript/Express port of the Australian Government's branding API to generate logos with text (originally written in Kotlin and Spring Boot). The logos it generates are almost identical to the original ones (just some small font rendering differences), and from some unscientific tests it appears to be substantially faster. The actual API/query parameter usage is backwards compatible with the original implementation, but there are additional features.
+
+## API docs
 
 This api generates Government logos using the coat of arms that follow [the guidelines](https://beta.dta.gov.au/help-and-advice/guides-and-tools/requirements-australian-government-websites/branding)
 
@@ -16,44 +20,44 @@ You're better off using it to generate images and then serve them yourself
 
 ### Inline
 ```
-https://api-gov-au-crest-branding.apps.y.cld.gov.au/inline.png?agency=Department%20Of%20Finance&height=200
+https://aus-crest.vercel.app/inline.png?agency=Department%20Of%20Finance&height=200
 ```
 
-![Inline](https://api-gov-au-crest-branding.apps.y.cld.gov.au/inline.png?agency=Department%20Of%20Finance&height=200)
+![Inline](https://aus-crest.vercel.app/inline.png?agency=Department%20Of%20Finance&height=200)
 
 
 
 ### Stacked
 ```
-https://api-gov-au-crest-branding.apps.y.cld.gov.au/stacked.png?agency=Department%20Of%20Finance&height=200
+https://aus-crest.vercel.app/stacked.png?agency=Department%20Of%20Finance&height=200
 ```
 
-![Inline](https://api-gov-au-crest-branding.apps.y.cld.gov.au/stacked.png?agency=Department%20Of%20Finance&height=200)
+![Inline](https://aus-crest.vercel.app/stacked.png?agency=Department%20Of%20Finance&height=200)
 
 
 
 ### Inline with multiple agencies
 ```
-https://api-gov-au-crest-branding.apps.y.cld.gov.au/inline.png?agency=Department%20Of%20Health&agency=Department%20of%20Foreign%20Affairs%20and%20Trade&agency=Attorney-General%27s%20Department&height=200
+https://aus-crest.vercel.app/inline.png?agency=Department%20Of%20Health&agency=Department%20of%20Foreign%20Affairs%20and%20Trade&agency=Attorney-General%27s%20Department&height=200
 ```
 
-![Inline with multiple agencies](https://api-gov-au-crest-branding.apps.y.cld.gov.au/inline.png?agency=Department%20Of%20Health&agency=Department%20of%20Foreign%20Affairs%20and%20Trade&agency=Attorney-General%27s%20Department&height=200)
+![Inline with multiple agencies](https://aus-crest.vercel.app/inline.png?agency=Department%20Of%20Health&agency=Department%20of%20Foreign%20Affairs%20and%20Trade&agency=Attorney-General%27s%20Department&height=200)
 
 ### Stacked with multiple agencies
 ```
-https://api-gov-au-crest-branding.apps.y.cld.gov.au/stacked.png?agency=Department%20Of%20Health&agency=Department%20of%20Foreign%20Affairs%20and%20Trade&agency=Attorney-General%27s%20Department&height=200
+https://aus-crest.vercel.app/stacked.png?agency=Department%20Of%20Health&agency=Department%20of%20Foreign%20Affairs%20and%20Trade&agency=Attorney-General%27s%20Department&height=200
 ```
 
-![Inline with multiple agencies](https://api-gov-au-crest-branding.apps.y.cld.gov.au/stacked.png?agency=Department%20Of%20Health&agency=Department%20of%20Foreign%20Affairs%20and%20Trade&agency=Attorney-General%27s%20Department&height=200)
+![Inline with multiple agencies](https://aus-crest.vercel.app/stacked.png?agency=Department%20Of%20Health&agency=Department%20of%20Foreign%20Affairs%20and%20Trade&agency=Attorney-General%27s%20Department&height=200)
 
 
 
 ### Inline and tertiary (also with forced new line)
 ```
-https://api-gov-au-crest-branding.apps.y.cld.gov.au/inline.png?agency=Department%20of%20the%0APrime%20Minister%20and%20Cabinet&agency=%7CGovernment%20Branding%20Unit&height=200
+https://aus-crest.vercel.app/inline.png?agency=Department%20of%20the%0APrime%20Minister%20and%20Cabinet&agency=%7CGovernment%20Branding%20Unit&height=200
 ```
 
-![Inline and tertiary ](https://api-gov-au-crest-branding.apps.y.cld.gov.au/inline.png?agency=Department%20of%20the%0APrime%20Minister%20and%20Cabinet&agency=%7CGovernment%20Branding%20Unit&height=200)
+![Inline and tertiary ](https://aus-crest.vercel.app/inline.png?agency=Department%20of%20the%0APrime%20Minister%20and%20Cabinet&agency=%7CGovernment%20Branding%20Unit&height=200)
 
 
 ## Basic usage
@@ -61,11 +65,11 @@ https://api-gov-au-crest-branding.apps.y.cld.gov.au/inline.png?agency=Department
 There are two endpoints:
 
 ### Inline usage
-https://api-gov-au-crest-branding.apps.y.cld.gov.au/inline.png
+https://aus-crest.vercel.app/inline.png
 
 
 ### Stacked usage
-https://api-gov-au-crest-branding.apps.y.cld.gov.au/stacked.png
+https://aus-crest.vercel.app/stacked.png
 
 
 ## Params
@@ -93,3 +97,6 @@ The width is derrived based on the longest 'agency' parameter
 
 ### 'square'
 Overrides the natural aspect-ratio of the images and pads it out to be a square
+
+### 'custom_govt'
+Overrides the "Australian Government" text with the parameter value
