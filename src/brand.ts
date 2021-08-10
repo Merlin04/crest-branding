@@ -21,33 +21,33 @@ registerFont("static/LiberationSerif-Regular.ttf", {
 
 let crest: Image | undefined = undefined;
 
-export async function inline(lines: string[], setHeight: number, square: boolean) {
+export async function inline(lines: string[], setHeight: number, square: boolean, govt?: string | undefined) {
     if (crest === undefined) {
         crest = await loadImage(await readFile("static/crest.png"));
     }
     const linesStart = (BRANDING_X * 1.95);
-    const longestLine = getLongestWidth(lines);
+    const longestLine = getLongestWidth(lines, govt);
     const height = Math.max(crest.height, 80 * (lines.length + howManyNewLines(lines) + 1) + linesStart);
     const width = longestLine + 2 * BRANDING_X + crest.width;
 
     const g = createGraphics(width, height);
     g.ctx.drawImage(crest, QUARTER_BRANDING_X, QUARTER_BRANDING_X);
-    drawLines(g.ctx, lines, width, linesStart, longestLine, false);
+    drawLines(g.ctx, lines, width, linesStart, longestLine, false, govt);
 
     return sizeImage(g, setHeight, square).canvas.toBuffer();
 }
 
-export async function stacked(lines: string[], setHeight: number, square: boolean) {
+export async function stacked(lines: string[], setHeight: number, square: boolean, govt?: string | undefined) {
     if (crest === undefined) {
         crest = await loadImage(await readFile("static/crest.png"));
     }
-    const longestLine = getLongestWidth(lines);
+    const longestLine = getLongestWidth(lines, govt);
     const height = crest.height + 80 * (lines.length + howManyNewLines(lines) + 1);
     const width = longestLine + 2 * BRANDING_X;
 
     const g = createGraphics(width, height);
     g.ctx.drawImage(crest, (width - crest.width) / 2, 0);
-    drawLines(g.ctx, lines, width, crest.height, longestLine, true);
+    drawLines(g.ctx, lines, width, crest.height, longestLine, true, govt);
 
     return sizeImage(g, setHeight, square).canvas.toBuffer();
 }
@@ -69,9 +69,9 @@ function sizeImage(source: Graphics, setHeight: number, square: boolean): Graphi
     return sizeImage(destination, setHeight, false);
 }
 
-function getLongestWidth(initialLines: string[]) {
+function getLongestWidth(initialLines: string[], govt?: string | undefined) {
     const g = createGraphics(1, 1).ctx;
-    const lines = [AU_GOVT, ...initialLines];
+    const lines = [govt ?? AU_GOVT, ...initialLines];
     let longest = 0;
     for (const line of lines) {
         for (const part of line.split("\n")) {
@@ -117,9 +117,10 @@ function drawLines(
     width: number,
     yOffset: number,
     longestLine: number,
-    center: boolean
+    center: boolean,
+    govt?: string | undefined
 ) {
-    const lines = [AU_GOVT, ...initialLines];
+    const lines = [govt ?? AU_GOVT, ...initialLines];
     let offset = 40 + yOffset;
     for (const line of lines) {
         const actualLineWidth = line === lines[lines.length - 1] ? 0 : longestLine;

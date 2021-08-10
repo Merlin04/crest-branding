@@ -8,8 +8,9 @@ export default (isInline: boolean) => async (req: express.Request, res: express.
     // TODO: limit height so we don't crash the server
     const height = Number(req.query.height ?? "800");
     const square = Boolean(req.query.square);
+    const govt = (typeof req.query.custom_govt === "string") ? req.query.custom_govt : undefined;
 
-    const image = await (isInline ? inline : stacked)(dollarEscape(agency.map(item => typeof item === "string" ? item : "")), height, square);
+    const image = await (isInline ? inline : stacked)(dollarEscape(agency.map(item => typeof item === "string" ? item : "")), height, square, govt);
 
     res.type("png");
     res.send(image);
