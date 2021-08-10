@@ -1,4 +1,4 @@
-import { Canvas, createCanvas, Image, loadImage, NodeCanvasRenderingContext2D, registerFont } from "canvas";
+import { Canvas, createCanvas, Image, loadImage, CanvasRenderingContext2D, registerFont } from "canvas";
 import fs from "fs";
 import { promisify } from "util";
 import "ts-replace-all";
@@ -85,7 +85,7 @@ function getLongestWidth(initialLines: string[], govt?: string | undefined) {
 
 interface Graphics {
     canvas: Canvas,
-    ctx: NodeCanvasRenderingContext2D
+    ctx: CanvasRenderingContext2D
 }
 
 function createGraphics(width: number, height: number): Graphics {
@@ -112,7 +112,7 @@ function howManyNewLines(lines: string[]) {
 }
 
 function drawLines(
-    g: NodeCanvasRenderingContext2D,
+    g: CanvasRenderingContext2D,
     initialLines: string[],
     width: number,
     yOffset: number,
@@ -130,7 +130,7 @@ function drawLines(
 }
 
 function drawAndUnderline(
-    g: NodeCanvasRenderingContext2D,
+    g: CanvasRenderingContext2D,
     text: string,
     y: number,
     canvasWidth: number,
