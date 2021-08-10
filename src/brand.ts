@@ -1,5 +1,6 @@
 import { Canvas, createCanvas, Image, loadImage, CanvasRenderingContext2D, registerFont } from "canvas";
 import fs from "fs";
+import path from "path";
 import { promisify } from "util";
 import "ts-replace-all";
 
@@ -9,12 +10,12 @@ const BRANDING_X = 60;
 const QUARTER_BRANDING_X = BRANDING_X / 4;
 const AU_GOVT = "Australian Government";
 
-registerFont("static/LiberationSerif-Bold.ttf", {
+registerFont(path.resolve("./static/LiberationSerif-Bold.ttf"), {
     family: "Liberation Serif",
     weight: "bold"
 });
 
-registerFont("static/LiberationSerif-Regular.ttf", {
+registerFont(path.resolve("static/LiberationSerif-Regular.ttf"), {
     family: "Liberation Serif",
     weight: "regular"
 });
