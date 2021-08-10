@@ -24,7 +24,7 @@ let crest: Image | undefined = undefined;
 
 export async function inline(lines: string[], setHeight: number, square: boolean, govt?: string | undefined) {
     if (crest === undefined) {
-        crest = await loadImage(await readFile("static/crest.png"));
+        crest = await loadImage(await readFile(path.resolve("./static/crest.png")));
     }
     const linesStart = (BRANDING_X * 1.95);
     const longestLine = getLongestWidth(lines, govt);
